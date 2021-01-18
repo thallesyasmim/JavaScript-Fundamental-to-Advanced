@@ -23,6 +23,10 @@ class EntityBase {
         return new Date().getFullYear() - this.#age // getFullYear() = 2021, 2021 - Idade = Ano de Nascimento
     }
 
+    set age(value) {
+        this.#age = value
+    }
+
     get gender() {
         return this.#gender
     }
