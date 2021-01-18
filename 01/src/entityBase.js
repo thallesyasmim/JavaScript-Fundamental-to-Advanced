@@ -12,7 +12,7 @@ class EntityBase {
     // getters
     get name() {
         const prefix = this.#gender === 'male' ? 'Mr.' : 'Ms.' // Mister && Miss
-        return `${prefix}  ${this.#name}`
+        return `${prefix} ${this.#name}`
     }
 
     get age() {
