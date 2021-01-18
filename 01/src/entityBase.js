@@ -15,8 +15,12 @@ class EntityBase {
         return `${prefix} ${this.#name}`
     }
 
-    get age() {
-        return this.#age
+    get birthDay() {
+        if(!this.#age) {
+            throw new Error('you must define age first!!')
+        }
+
+        return new Date().getFullYear() - this.#age // getFullYear() = 2021, 2021 - Idade = Ano de Nascimento
     }
 
     get gender() {
