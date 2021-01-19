@@ -24,5 +24,5 @@ const GENDER = { // Como se fosse um ENUM, para não ficarmos com string perdida
         gender: GENDER.female
     })
 
-    console.log('Employee', employee.birthDay) // Deu erro porque não passamos o 'age'
+    console.log('Employee', employee.birthYear) // Deu erro porque não passamos o 'age'
 }
