@@ -18,11 +18,11 @@ const GENDER = { // Como se fosse um ENUM, para não ficarmos com string perdida
     female: 'female'
 }
 
-{ // Diz que estamos criando um contexto, as variáveis que serão criadas não poderão ser acessadas de fora
+{ // Caso que deu erro
     const employee = new Employee({
         name: 'Yasmim Cristina',
         gender: GENDER.female
     })
 
-    console.log('Employee', employee.birthYear) // Deu erro porque não passamos o 'age'
+    assert.throws(() => employee.birthYear, { message: 'you must define age first!!' }) 
 }
