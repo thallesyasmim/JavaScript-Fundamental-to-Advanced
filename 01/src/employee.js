@@ -6,6 +6,12 @@ class Employee extends EntityBase { // Herança
 
     get grossPay() {
         return Util.formatCurrency(this.#grossPay)
+    }
+
+    get netPay() { // Neste caso: Employee.#TAXES_PERCENTUAL, o membro estático pode ser acessado assim
+        const result = this.#grossPay - (this.#grossPay * Employee.#TAXES_PERCENTUAL) // Dependendo da maneira que você chamar suas funções, os membros estarão lá dentro ou não
+        return Util.formatCurrency(result)
+    }
 }
 
 module.exports = Employee
