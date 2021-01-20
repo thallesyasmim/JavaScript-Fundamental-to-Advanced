@@ -26,3 +26,14 @@ const GENDER = { // Como se fosse um ENUM, para não ficarmos com string perdida
 
     assert.throws(() => employee.birthYear, { message: 'you must define age first!!' }) 
 }
+
+{ // Caso que deu certo
+    const employee = new Employee({
+        name: 'Thalles Gabriel',
+        age: 17,
+        gender: GENDER.male
+    })
+
+    assert.deepStrictEqual(employee.name, 'Mr. Thalles Gabriel') // Comparação dos valores, se forem !== dará erro
+
+}
