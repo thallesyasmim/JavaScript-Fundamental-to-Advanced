@@ -5,8 +5,8 @@ class Employee extends EntityBase { // Herança
     #grossPay = 5000.40
 
     get grossPay() {
-        return Intl.NumberFormat('pt-br', {
-            currency: 'BRL',
+        return Intl.NumberFormat('en', {
+            currency: 'USD',
             style: 'currency'
         }).format(this.#grossPay)
     }
