@@ -1,5 +1,5 @@
-const Employee = require("./01/src/employee");
-const Util = require("./01/src/util")
+const Employee = require("./employee");
+const Util = require("./util")
 
 
 class Manager extends Employee {
