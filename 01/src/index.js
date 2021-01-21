@@ -28,10 +28,13 @@ const GENDER = { // Como se fosse um ENUM, para não ficarmos com string perdida
     assert.throws(() => employee.birthYear, { message: 'you must define age first!!' }) 
 }
 
+const CUURENT_YEAR = 2021
+Date.prototype.getFullYear = () => CUURENT_YEAR // Substituindo o método getFullYear do JS, sempre que temos variáveis que dependem do O.S mocamos, essas variáveis
+
 { // Caso que deu certo
     const employee = new Employee({
         name: 'Thalles Gabriel',
-        age: 17,
+        age: 18,
         gender: GENDER.male
     })
 
@@ -40,4 +43,15 @@ const GENDER = { // Como se fosse um ENUM, para não ficarmos com string perdida
     assert.deepStrictEqual(employee.gender, 'male')
     // assert.deepStrictEqual(employee.grossPay, 'R$ 5.000,40') Dá erro mesmo sendo exatamente a mesma string
     assert.deepStrictEqual(employee.grossPay, Util.formatCurrency(5000.40)) // Deu certo!!!
+    assert.deepStrictEqual(employee.netPay, Util.formatCurrency(4000.32))
+
+    const expectedBirthYear = 2003
+    assert.deepStrictEqual(employee.birthYear, expectedBirthYear)
+
+    // BirthYear não tem set, logo não vai mudar
+    // employee.birthYear = new Date().getFullYear() - 90
+    // assert.deepStrictEqual(employee.birthYear, new Date().getFullYear() - 90)
+
+    employee.age = 90 // O age tem set, logo irá mudar
+    assert.deepStrictEqual(employee.birthYear, 1931)
 } 
