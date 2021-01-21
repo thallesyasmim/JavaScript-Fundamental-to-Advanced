@@ -67,4 +67,9 @@ Date.prototype.getFullYear = () => CUURENT_YEAR // Substituindo o método getFul
     assert.deepStrictEqual(manager.name, 'Ms. Yasmim Cristina')
     assert.deepStrictEqual(manager.age, undefined)
     assert.deepStrictEqual(manager.gender, 'female')
+    assert.deepStrictEqual(manager.birthYear, 2004)
+    assert.deepStrictEqual(manager.grossPay, Util.formatCurrency(5000.40))
+    assert.deepStrictEqual(manager.bonuses, Util.formatCurrency(2000))
+
+    assert.deepStrictEqual(manager.netPay, Util.formatCurrency(6000.32)) // Agora será o netPay do manager!
 }
