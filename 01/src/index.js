@@ -12,6 +12,7 @@
 
 const assert = require('assert')
 const Employee = require('./employee')
+const Manager = require('./manager')
 const Util = require('./util')
 
 const GENDER = { // Como se fosse um ENUM, para não ficarmos com string perdida por aí
@@ -55,3 +56,20 @@ Date.prototype.getFullYear = () => CUURENT_YEAR // Substituindo o método getFul
     employee.age = 90 // O age tem set, logo irá mudar
     assert.deepStrictEqual(employee.birthYear, 1931)
 } 
+
+{
+    const manager = new Manager({
+        name: 'Yasmim Cristina',
+        age: 17,
+        gender: GENDER.female
+    })
+
+    assert.deepStrictEqual(manager.name, 'Ms. Yasmim Cristina')
+    assert.deepStrictEqual(manager.age, undefined)
+    assert.deepStrictEqual(manager.gender, 'female')
+    assert.deepStrictEqual(manager.birthYear, 2004)
+    assert.deepStrictEqual(manager.grossPay, Util.formatCurrency(5000.40))
+    assert.deepStrictEqual(manager.bonuses, Util.formatCurrency(2000))
+
+    assert.deepStrictEqual(manager.netPay, Util.formatCurrency(6000.32)) // Agora será o netPay do manager!
+}
