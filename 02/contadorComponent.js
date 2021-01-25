@@ -27,7 +27,7 @@ class ContadorComponent {
         return contador
     }
 
-    atualizarTexto({ elementoContador, contador }) {
+    atualizarTexto = ({ elementoContador, contador }) = () => { // Na primeira vez que o método for executado ele vai somente guardar os parâmetros, depois vai executar realmente a lógica.
         const identificadorTexto = '$$contador'
         const textoPadrao = `Começando em <strong>${identificadorTexto}</strong> segundos...`
 
@@ -49,6 +49,11 @@ class ContadorComponent {
             contador
         }
 
+        const fn = this.atualizarTexto(argumentos) // Retorna uma função com os parâmetros, mas a lógica não foi executada
+        fn() // Agora sim a lógica será executada!
+        fn()
+        fn()
+        fn()
 
     }
 }
