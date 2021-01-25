@@ -23,6 +23,8 @@ class ContadorComponent {
             valor: VALOR_CONTADOR,
             efetuarParada: () => {}
         }, handler)
+
+        return contador
     }
 
     inicializar() {
