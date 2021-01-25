@@ -27,8 +27,11 @@ class ContadorComponent {
         return contador
     }
 
-    atualizarText(arguments) {
-        
+    atualizarTexto({ elementoContador, contador }) {
+        const identificadorTexto = '$$contador'
+        const textoPadrao = `Começando em <strong>${identificadorTexto}</strong> segundos...`
+
+        elementoContador.innerHTML = textoPadrao.replace(identificadorTexto, contador.valor--)
     }
 
     inicializar() {
