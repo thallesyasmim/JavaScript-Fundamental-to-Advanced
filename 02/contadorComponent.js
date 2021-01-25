@@ -27,11 +27,17 @@ class ContadorComponent {
         return contador
     }
 
-    atualizarTexto = ({ elementoContador, contador }) = () => { // Na primeira vez que o método for executado ele vai somente guardar os parâmetros, depois vai executar realmente a lógica.
+    atualizarTexto = ({ elementoContador, contador }) => () => { // Na primeira vez que o método for executado ele vai somente guardar os parâmetros, depois vai executar realmente a lógica.
         const identificadorTexto = '$$contador'
         const textoPadrao = `Começando em <strong>${identificadorTexto}</strong> segundos...`
 
         elementoContador.innerHTML = textoPadrao.replace(identificadorTexto, contador.valor--)
+    }
+
+    agendarParadaContador({ elementoContador, idIntervalo }) { // 2° Forma de criar Closures - Função Parcial 
+        return () => {
+
+        }
     }
 
     inicializar() {
@@ -50,10 +56,22 @@ class ContadorComponent {
         }
 
         const fn = this.atualizarTexto(argumentos) // Retorna uma função com os parâmetros, mas a lógica não foi executada
-        fn() // Agora sim a lógica será executada!
-        fn()
-        fn()
-        fn()
+        // fn()  Agora sim a lógica será executada!
+        // fn()  O mesmo resultado que antes, mas com uma vantagem, se eu posso passar agora sem parâmetros...
+        // fn()  ...Posso passar como referência direta no setInterval()
+
+        const idIntervalo = setInterval(fn, PERIODO_INTERVALO) // A cada 10 ms a nossa Closure será executada, já com os parâmetros guardados
+        
+        {
+            const argumentos = {
+                elementoContador,
+                idIntervalo
+            }
+
+
+        }
+
+
 
     }
 }
