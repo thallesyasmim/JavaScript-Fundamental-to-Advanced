@@ -38,6 +38,7 @@ class ContadorComponent {
         return () => {
             clearInterval(idIntervalo)
             elementoContador.innerHTML = ''
+            this.desabilitarBotao() // Enxerga somente o contexto criado com o método apply()
         }
     }
 
@@ -68,9 +69,10 @@ class ContadorComponent {
                 elementoContador,
                 idIntervalo
             }
+            const desabilitarBotao = () => console.log('Desabilitou')
 
-            const paraContadorFn = this.agendarParadaContador(argumentos)
-            
+            const paraContadorFn = this.agendarParadaContador.apply({ desabilitarBotao }, [argumentos]) // Criando um novo contexto no 1° parâmetro, 2° Array de argumentos, no nosso caso temos só o objeto 'argumentos'
+            contador.efetuarParada = paraContadorFn
 
 
         }
