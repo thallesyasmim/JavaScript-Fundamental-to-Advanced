@@ -1,2 +1,2 @@
 // Responsável por inicializar todos os módulos que tiver no nosso projeto
-window.onload = () => new ContadorComponent() // Quando a janela carregar...
+window.onload = () => new ContadorComponent() // Quando a janela carregar... || Tudo que digitamos aqui já sai do objeto 'window', então está tudo certo
