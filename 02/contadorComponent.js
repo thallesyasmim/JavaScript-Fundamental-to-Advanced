@@ -14,6 +14,11 @@ class ContadorComponent {
                 console.log({ currentContext, propertyKey, newValue })
                 // console.log('Contexto Atual - Objeto que está sendo passado no construtor do Proxy', currentContext)
 
+                // Parar todo o processamento
+                if(!currentContext.valor) { // Quando for 0, ele será falso
+                    currentContext.efetuarParada()
+                }
+
                 currentContext[propertyKey] = newValue
                 return true
             }
@@ -35,12 +40,27 @@ class ContadorComponent {
     }
 
     agendarParadaContador({ elementoContador, idIntervalo }) { // 2° Forma de criar Closures - Função Parcial 
-        return () => {
+        return () => { // Currying - Função que será executada depois
             clearInterval(idIntervalo)
             elementoContador.innerHTML = ''
-            this.desabilitarBotao() // Enxerga somente o contexto criado com o método apply()
+            this.desabilitarBotao(false) // Enxerga somente o contexto criado com o método apply()
         }
     }
+
+    prepararBotao(elementoBotao, iniciarFn) {
+        elementoBotao.addEventListener('click', iniciarFn.bind(this)) // Vai executar também na primeira vez, guardando os parâmetros
+        // Dará erro porque o this no método inicializar é as propriedades do elemento botão, com o método bind(this) dizemos que queremos o contexto da classe
+        return (valor = true) => { // Por padrão será true, ou seja, se ninguém passar algo como parâmetro
+            const atributo = 'disabled'
+
+            if(valor) {
+                elementoBotao.setAttribute(atributo, valor)
+                return
+            }
+
+            elementoBotao.removeAttribute(atributo)
+        }
+    } 
 
     inicializar() {
         console.log('Inicializou!')
@@ -65,19 +85,16 @@ class ContadorComponent {
         const idIntervalo = setInterval(fn, PERIODO_INTERVALO) // A cada 10 ms a nossa Closure será executada, já com os parâmetros guardados
         
         {
+            const elementoBotao = document.getElementById(BTN_REINICIAR)
+            const desabilitarBotao = this.prepararBotao(elementoBotao, this.inicializar)
+            desabilitarBotao()
             const argumentos = {
                 elementoContador,
                 idIntervalo
             }
-            const desabilitarBotao = () => console.log('Desabilitou')
-
-            const paraContadorFn = this.agendarParadaContador.apply({ desabilitarBotao }, [argumentos]) // Criando um novo contexto no 1° parâmetro, 2° Array de argumentos, no nosso caso temos só o objeto 'argumentos'
+            // const desabilitarBotao = () => console.log('Desabilitou...')
+            const paraContadorFn = this.agendarParadaContador.apply({ desabilitarBotao }, [argumentos]) // JÁ CHAMA O MÉTODO - Criando um novo contexto no 1° parâmetro, 2° Array de argumentos, no nosso caso temos só o objeto 'argumentos'
             contador.efetuarParada = paraContadorFn
-
-
         }
-
-
-
     }
 }
