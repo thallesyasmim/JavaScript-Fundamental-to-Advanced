@@ -36,7 +36,8 @@ class ContadorComponent {
 
     agendarParadaContador({ elementoContador, idIntervalo }) { // 2° Forma de criar Closures - Função Parcial 
         return () => {
-
+            clearInterval(idIntervalo)
+            elementoContador.innerHTML = ''
         }
     }
 
@@ -67,6 +68,9 @@ class ContadorComponent {
                 elementoContador,
                 idIntervalo
             }
+
+            const paraContadorFn = this.agendarParadaContador(argumentos)
+            
 
 
         }
