@@ -12,7 +12,7 @@ class ContadorComponent {
         const handler = {
             set: (currentContext, propertyKey, newValue) => { // Método acessório SET para o objeto Proxy - Executado sempre que o objeto passado no construtor do Proxy mudar
                 console.log({ currentContext, propertyKey, newValue })
-                console.log('Contexto Atual - Objeto que está sendo passado no construtor do Proxy', currentContext)
+                // console.log('Contexto Atual - Objeto que está sendo passado no construtor do Proxy', currentContext)
 
                 currentContext[propertyKey] = newValue
                 return true
@@ -27,10 +27,24 @@ class ContadorComponent {
         return contador
     }
 
+    atualizarText(arguments) {
+        
+    }
+
     inicializar() {
         console.log('Inicializou!')
         const elementoContador = document.getElementById(ID_CONTADOR) // OUTPUT
 
+        const contador = this.preparContadorProxy()
+        // contador.valor = 100 - Proxy observou à alteração, e invocou o método SET do objeto 'handler'
+        // contador.valor = 90 - Mostrando no console o contexto atual, propriedade que está sendo alterada e o novo valor
+        // contador.valor = 80 - Nesse caso, a prop seria 'valor' e o novo valor seria '80'
+        console.log('Contador', contador)
+
+        const argumentos = {
+            elementoContador,
+            contador
+        }
 
 
     }
