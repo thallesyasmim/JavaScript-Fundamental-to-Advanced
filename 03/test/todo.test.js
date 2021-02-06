@@ -14,7 +14,16 @@ describe('todo', () => { // Vamos criando uma árvore aqui dentro...
             const result = todo.isValid() // Se o método "isValid()" retornar nulo, sabemos que ele não passou nas condições lá
             expect(result).to.be.not.ok // Asserção - Passa no teste porque realmente não está ok
         }) // Uma regra de négocio
-        it('should return invalid when creating an object using the "when" property invalid') // Outra regra de négocio
+        it('should return invalid when creating an object using the "when" property invalid', () => {
+            const data = {
+                text: 'Hello World',
+                when: new Date('20-02-06') // O ano está errado, então dará inválido
+            }
+
+            const todo = new Todo(data)
+            const result = todo.isValid() 
+            expect(result).to.be.not.ok 
+        }) // Outra regra de négocio
         it('should have "id", "text", "when" and "status" properties after creating object')
     })
 })
