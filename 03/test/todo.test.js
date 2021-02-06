@@ -24,7 +24,16 @@ describe('todo', () => { // Vamos criando uma árvore aqui dentro...
             const result = todo.isValid() 
             expect(result).to.be.not.ok 
         }) // Outra regra de négocio
-        it('should have "id", "text", "when" and "status" properties after creating object')
+        it('should have "id", "text", "when" and "status" properties after creating object', () => {
+            const data = {
+                text: 'Hello World',
+                when: new Date('2021-02-06') // 
+            }
+
+            const todo = new Todo(data)
+            const result = todo.isValid() 
+            expect(result).to.be.ok 
+        }) // Verificando se o objeto todas as informações que precisamos
     })
 })
 
