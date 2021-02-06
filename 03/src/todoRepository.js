@@ -16,3 +16,23 @@ class TodoRepository {
 }
 
 module.exports = TodoRepository
+
+// const test = new TodoRepository()
+
+// test.create({ name: 'Yasmim', age: 17 })
+// test.create({ name: 'Thalles', age: 17 })
+
+// console.log('test database', test.list());
+
+// [
+//     {
+//       name: 'Yasmim',
+//       age: 17,
+//       meta: { revision: 0, created: 1612649121174, version: 0 },    '$loki': 1
+//     },
+//     {
+//       name: 'Thalles',
+//       age: 17,
+//       meta: { revision: 0, created: 1612649121174, version: 0 },    '$loki': 2
+//     }
+//   ]
