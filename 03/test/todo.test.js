@@ -1,5 +1,6 @@
 const { describe, it, before } = require('mocha') // Mocha - nosso motor de renderização, não precisamos usar o Node em sí aqui
 const { expect } = require('chai') // Chai - para fazer asserções, vimos o módulo Assert do Node.js também, porém vamos usar o Chai por ser algo mais facilmente visível
+const Todo = require('../src/todo')
 
 describe('todo', () => { // Vamos criando uma árvore aqui dentro...
     describe('#isValid', () => { // Uma Switch de test
@@ -8,6 +9,10 @@ describe('todo', () => { // Vamos criando uma árvore aqui dentro...
                 text: '',
                 when: new Date('2021-02-06')
             }
+
+            const todo = new Todo(data)
+            const result = todo.isValid() // Se o método "isValid()" retornar nulo, sabemos que ele não passou nas condições lá
+            expect(result).to.be.not.ok // Asserção - Passa no teste porque realmente não está ok
         }) // Uma regra de négocio
         it('should return invalid when creating an object using the "when" property invalid') // Outra regra de négocio
         it('should have "id", "text", "when" and "status" properties after creating object')
