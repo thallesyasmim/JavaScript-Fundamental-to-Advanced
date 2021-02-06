@@ -12,7 +12,7 @@ class Todo {
     isValid() {
         // 0 - '' - null - false = false
         return !!this.text && isNaN(this.when.valueOf()) // !! - Transforma o valor em booleano mantendo se ele é true ou false
-        // valueOf() - Retorna o valor com typeof number
+        // valueOf() - Retorna o valor com typeof number, no caso da data retorna em milisegundos | isNan() - Verifica se não é um número
     }
 }
 
