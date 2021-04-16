@@ -9,7 +9,8 @@ class TodoService {
 	}
 
 	list(query) {
-
+		return this.todoRepository.list()
+			.map(({ meta, $loki, ...result }) => result)
 	}
 }
 
