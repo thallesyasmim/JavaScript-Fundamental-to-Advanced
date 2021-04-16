@@ -10,9 +10,11 @@ describe('todoRepository', () => {
 		todoRepository = new TodoRepository()
 		sandBox = createSandbox()
 	})
+
 	afterEach(() => { // Executado após cada it()
 		sandBox.restore() // Restaurar instância do TodoRepository
 	})
+
 	describe('methods signature', () => {
 		it('should call find from lokijs', () => {
 			const mockDatabase = [
@@ -33,8 +35,24 @@ describe('todoRepository', () => {
 
 			const result = todoRepository.list() // Retorna os nossos dados mockados
 			expect(result).to.be.deep.equal(expectedReturn) // Verificação profunda de igualdade
+			expect(todoRepository.schedule[functionName].calledOnce).to.be.ok // Verificar quantas vezes a nossa função foi chamada, para que não tenha nenhum loop interno.
+			// o stub mudou o comportamento do método, espionando (espionage) os seus parâmetros e ações | calledOnce irá verificar se a função foi chamada uma vez
 		})
-		it('should call insertOne from lokijs')
+
+		it('should call insertOne from lokijs', () => {
+			const functionName = 'insertOne' 
+			const expectedReturn = true
+			sandBox.stub(  
+				todoRepository.schedule, 
+				functionName
+			).returns(expectedReturn)
+
+			const data = { name: 'Yasmim', age: 17 }
+
+			const result = todoRepository.create(data) // Lembrando que isto não tem nada haver com o nosso Todo por enquanto
+			expect(result).to.be.ok 
+			expect(todoRepository.schedule[functionName].calledOnceWithExactly(data)).to.be.ok // Esperamos que ele chame exatamente com o 'data'
+		})
 	})
 })
 
