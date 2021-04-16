@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx mocha --parallel --exit test/",
+    "test": "npx mocha --exit test/",
     "test:dev": "npx mocha test/ -w",
     "test:cov": "npx nyc --reporters=html,text npm test"
   },
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "chai": "^4.3.0",
+    "eslint": "^7.24.0",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "sinon": "^9.2.4"
