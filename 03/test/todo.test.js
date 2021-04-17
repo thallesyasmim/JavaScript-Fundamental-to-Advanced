@@ -1,9 +1,18 @@
-const { describe, it, before } = require('mocha') // Mocha - nosso motor de renderização, não precisamos usar o Node em sí aqui
+const { describe, it, beforeEach, afterEach } = require('mocha') // Mocha - nosso motor de renderização, não precisamos usar o Node em sí aqui
 const { expect } = require('chai') // Chai - para fazer asserções, vimos o módulo Assert do Node.js também, porém vamos usar o Chai por ser algo mais facilmente visível
 const Todo = require('../src/todo')
+const TodoService = require('../src/todoService')
+const { createSandbox } = require('sinon')
 
 
 describe('todo', () => { // Vamos criando uma árvore aqui dentro...
+	let sandBox
+	beforeEach(() => {
+		sandBox = createSandbox()
+	})
+
+	afterEach(() => sandBox.restore())
+
 	describe('#isValid', () => { // Uma Switch de test
 		it('should return invalid when creating an object without text', () => {
 			const data = {
@@ -31,9 +40,23 @@ describe('todo', () => { // Vamos criando uma árvore aqui dentro...
 				when: new Date('2021-02-06') 
 			}
 
+			const expectedId = '00001'
+			const uuid = require('uuid')
+			const fakeUUID = sandBox.fake.returns(expectedId) 
+			sandBox.replace(uuid, 'v4', fakeUUID)
+
 			const todo = new Todo(data)
-			const result = todo.isValid() 
+			const result = todo.isValid()
+			
+			const expected = {
+				...data,
+				status: '',
+				id: expectedId
+			}
+
 			expect(result).to.be.ok 
+			expect(uuid.v4.calledOnce).to.be.ok 
+			expect(todo).to.be.deep.equal(expected) 
 		}) // Verificando se o objeto todas as informações que precisamos
 	})
 })
